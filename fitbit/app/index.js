@@ -5,9 +5,8 @@ import * as document from "document";
 // const clock = document.getElementById("clock");
 // clock.text = "Hello, world!";
 
-const localTimeText = document.getElementById("local-time-value");
-const convertedTimeText = document.getElementById("converted-time-value");
-
+const localTimeValue = document.getElementById("local-time-value");
+const convertedTimeValue = document.getElementById("converted-time-value");
 const btnNY = document.getElementById("btn-ny");
 const btnLondon = document.getElementById("btn-london");
 const btnTokyo = document.getElementById("btn-tokyo");
@@ -47,7 +46,7 @@ function convertTimeZone(time, timeZoneString, dataToSend={}) {
 function processLocalTime(localTime) {
 	console.log('It is currently ' + localTime.response + ' locally');
 	//TODO: display the local time. You may want to do so in a different part of the code, or may be able to modify this method
-	localTimeText.text = localTime.response;
+	localTimeValue.text = localTime.response;
 }
 
 function processConvertedTime(convertedTime) {
@@ -57,20 +56,8 @@ function processConvertedTime(convertedTime) {
 		console.log('It is currently ' + convertedTime.response + ' in ' + convertedTime.timeZoneString);
 	}
 	//TODO: display the converted times. You may want to do so in a different part of the code, or may be able to modify this method
-	convertedTimeText.text = convertedTime.response;
+	convertedTimeValue.text = convertedTime.response;
 }
-
-btnNY.addEventListener("click", (evt) => {
-	convertTimeZone(new Date().toString(), "New York");
-});
-  
-btnLondon.addEventListener("click", (evt) => {
-	convertTimeZone(new Date().toString(), "London");
-});
-  
-btnTokyo.addEventListener("click", (evt) => {
-	convertTimeZone(new Date().toString(), "Tokyo");
-});
 
 //Listener for responses from the companion
 messaging.peerSocket.addEventListener("message", (evt) => {
@@ -86,6 +73,14 @@ messaging.peerSocket.addEventListener("error", (err) => {
   console.error(`Connection error: ${err.code} - ${err.message}`);
 });
 
-function convertToTimeZone(timeZone) {
-	convertTimeZone(new Date().toString(), timeZone);
-  }
+btnNY.addEventListener("click", (evt) => {
+	convertTimeZone(new Date().toString(), "New York");
+});
+  
+btnLondon.addEventListener("click", (evt) => {
+	convertTimeZone(new Date().toString(), "London");
+});
+  
+btnTokyo.addEventListener("click", (evt) => {
+	convertTimeZone(new Date().toString(), "Tokyo");
+});
