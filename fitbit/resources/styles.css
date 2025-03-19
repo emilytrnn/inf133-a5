@@ -1,11 +1,14 @@
-#clock {
-  font-size: 32;
+#local-time, #converted-time {
+  font-size: 24;
   font-family: System-Regular;
-  font-weight: regular;
+  font-weight: bold;
 }
 
-#background {
-  width: 100%;
-  height: 100%;
-  fill: white;
+#local-time-value, #converted-time-value {
+  font-size: 32;
+  font-family: System-Regular;
+}
+
+g {
+  cursor: pointer;
 }

@@ -2,8 +2,15 @@ import * as messaging from 'messaging';
 import * as document from "document";
 
 //Get the clock element defined in resources/index.view and set its text
-const clock = document.getElementById("clock");
-clock.text = "Hello, world!";
+// const clock = document.getElementById("clock");
+// clock.text = "Hello, world!";
+
+const localTimeText = document.getElementById("local-time-value");
+const convertedTimeText = document.getElementById("converted-time-value");
+
+const btnNY = document.getElementById("btn-ny");
+const btnLondon = document.getElementById("btn-london");
+const btnTokyo = document.getElementById("btn-tokyo");
 
 messaging.peerSocket.addEventListener("open", (evt) => {
   console.log("Ready to send or receive messages");
@@ -40,6 +47,7 @@ function convertTimeZone(time, timeZoneString, dataToSend={}) {
 function processLocalTime(localTime) {
 	console.log('It is currently ' + localTime.response + ' locally');
 	//TODO: display the local time. You may want to do so in a different part of the code, or may be able to modify this method
+	localTimeText.text = localTime.response;
 }
 
 function processConvertedTime(convertedTime) {
@@ -49,7 +57,20 @@ function processConvertedTime(convertedTime) {
 		console.log('It is currently ' + convertedTime.response + ' in ' + convertedTime.timeZoneString);
 	}
 	//TODO: display the converted times. You may want to do so in a different part of the code, or may be able to modify this method
+	convertedTimeText.text = convertedTime.response;
 }
+
+btnNY.addEventListener("click", (evt) => {
+	convertTimeZone(new Date().toString(), "New York");
+});
+  
+btnLondon.addEventListener("click", (evt) => {
+	convertTimeZone(new Date().toString(), "London");
+});
+  
+btnTokyo.addEventListener("click", (evt) => {
+	convertTimeZone(new Date().toString(), "Tokyo");
+});
 
 //Listener for responses from the companion
 messaging.peerSocket.addEventListener("message", (evt) => {
@@ -64,3 +85,7 @@ messaging.peerSocket.addEventListener("message", (evt) => {
 messaging.peerSocket.addEventListener("error", (err) => {
   console.error(`Connection error: ${err.code} - ${err.message}`);
 });
+
+function convertToTimeZone(timeZone) {
+	convertTimeZone(new Date().toString(), timeZone);
+  }
